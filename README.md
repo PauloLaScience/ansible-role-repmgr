@@ -1,12 +1,12 @@
-Role Name
+Role Repmgr
 =========
 
-A brief description of the role goes here.
+Install repmgr, a HA solution for Postgresql cluster developped by 2ndQuadrant
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Postgresql need to be installed on host
 
 Role Variables
 --------------
@@ -25,7 +25,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: paulolascience.repmgr, x: 42 }
 
 License
 -------

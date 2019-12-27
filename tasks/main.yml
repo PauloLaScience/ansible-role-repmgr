@@ -1,13 +1,20 @@
 ---
 # tasks file for ansible-role-repmgr
-- name: Add repository from Postgresql Development Group
-  yum_repository:
-    name: pgdg
-    description: Postgresql Development Group repository 
-    baseurl: https://download.postgresql.org/pub/repos/yum/reporpms/EL-$releasever-$basearch/pgdg-fedora-repo-latest.noarch.rpm
+- name: install the pgdg rpm from a remote repo
+  yum:
+    name: https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+    state: present
 
+- name: get package postgresql version
+  yum:
+    list: postgresql
+  register: postgresql_version
+
+- name: set package version
+  set_fact:
+    package_name_version: "{{ postgresql_version.results|selectattr('yumstate','equalto','installed')|map(attribute='version')|list|first }}"
 - name: install the latest version of Repmgr based on Posgresql installed
   yum:
-    name: repmgr$pg-version
+    name: repmgr$postgresql_version
     state: latest
  
